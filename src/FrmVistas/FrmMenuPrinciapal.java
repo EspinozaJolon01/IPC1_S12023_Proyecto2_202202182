@@ -237,15 +237,22 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
         if (!txtUsuario.getText().isEmpty()) {
 
-            Usuario user = new Usuario(txtUsuario.getText());
-            listarUser.add(user);
-            categoria.categoriaGeneral();
-            listarUser.listarNombres();
-            FrmBiblioteca vista1 = new FrmBiblioteca();
-            vista1.setVisible(true);
-            this.dispose();
+            if (listarUser.buscarUser(txtUsuario.getText())) {
+                System.out.println("primer if");
+                FrmBiblioteca vista1 = new FrmBiblioteca();
+                vista1.setVisible(true);
+                this.dispose();
 
-            
+            } else {
+                System.out.println("segundo else if");
+                Usuario user = new Usuario(txtUsuario.getText());
+                listarUser.add(user);
+                categoria.categoriaGeneral();
+                listarUser.listarNombres();
+                FrmBiblioteca vista1 = new FrmBiblioteca();
+                vista1.setVisible(true);
+                this.dispose();
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "Debes de ingresa el nombre del usauario", "ERROR", JOptionPane.ERROR_MESSAGE);

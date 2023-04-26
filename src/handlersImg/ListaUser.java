@@ -14,17 +14,32 @@ import proyecto2.EstructuraDeDatos;
 public class ListaUser extends EstructuraDeDatos {
 
     private NodoUser cabeza = null;
-    
-    
-    
-    public void listarNombres(){
-        NodoUser  axu =  cabeza;
-        while (axu != null) {       
+
+    public void listarNombres() {
+        NodoUser axu = cabeza;
+        while (axu != null) {
             System.out.println("-------------------");
             System.out.println(axu.getUsuario().nombre + " --");
-            axu =  axu.getSiguiente();
+            axu = axu.getSiguiente();
         }
         System.out.println("null \n");
+    }
+
+    public boolean buscarUser(String d) {
+        boolean encontrado = false;
+        NodoUser aux = cabeza;
+        while (encontrado != true && aux != null) {
+            if (d.equals(aux.getUsuario())) {
+                encontrado = true;
+            } else {
+                aux = aux.getSiguiente();
+            }
+
+            if (encontrado == true) {
+                break;
+            }
+        }
+        return encontrado;
     }
 
     @Override
