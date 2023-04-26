@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package handlersImg;
+package Nodos;
 
 import Modelo.Usuario;
+
 import proyecto2.EstructuraDeDatos;
 
 /**
  *
  * @author Usuario
  */
-public class ListaUser extends EstructuraDeDatos {
-
-    private NodoUser cabeza = null;
+public class ListaUser  extends EstructuraDeDatos{
+       private NodoUser cabeza = null;
 
     public void listarNombres() {
         NodoUser axu = cabeza;
@@ -107,5 +107,4 @@ public class ListaUser extends EstructuraDeDatos {
     public void delete(Object e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

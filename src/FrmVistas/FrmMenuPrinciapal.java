@@ -7,9 +7,8 @@ package FrmVistas;
 import Modelo.Usuario;
 import Modelo.Categoria;
 import Modelo.CategoriaDao;
+import Nodos.ListaUser;
 
-import handlersImg.ListaUser;
-import handlersImg.NodoUser;
 import javax.swing.JOptionPane;
 
 /**
