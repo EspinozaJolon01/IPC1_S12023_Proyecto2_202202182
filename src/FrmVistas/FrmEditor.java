@@ -4,6 +4,7 @@
  */
 package FrmVistas;
 
+
 import Modelo.Usuario;
 import handlersImg.JEPGImageHandlerBN;
 import handlersImg.JEPGImageHandlerBmp;
@@ -27,6 +28,7 @@ public class FrmEditor extends javax.swing.JFrame {
     String imagen;
     ImageIcon imagenU;
     Usuario user = new Usuario();
+
 
     /**
      * Creates new form FrmEditor

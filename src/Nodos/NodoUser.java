@@ -4,7 +4,10 @@
  */
 package Nodos;
 
+import Modelo.Categoria;
+import static Modelo.CategoriaDao.categoria;
 import Modelo.Usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,4 +38,5 @@ public class NodoUser {
     public void setSiguiente(NodoUser siguiente) {
         this.siguiente = siguiente;
     }
+
 }

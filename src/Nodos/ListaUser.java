@@ -12,8 +12,9 @@ import proyecto2.EstructuraDeDatos;
  *
  * @author Usuario
  */
-public class ListaUser  extends EstructuraDeDatos{
-       private NodoUser cabeza = null;
+public class ListaUser extends EstructuraDeDatos {
+
+    private NodoUser cabeza = null;
 
     public void listarNombres() {
         NodoUser axu = cabeza;
@@ -23,6 +24,19 @@ public class ListaUser  extends EstructuraDeDatos{
             axu = axu.getSiguiente();
         }
         System.out.println("null \n");
+    }
+
+    public NodoUser getUsuario(String usuario) {
+        NodoUser temporal = cabeza;
+
+        while (temporal != null) {
+            if (temporal.getUsuario().equals(usuario)) {
+                return temporal;
+            }
+
+            temporal = temporal.getSiguiente();
+        }
+        return null;
     }
 
     public boolean buscarUser(String d) {
@@ -58,7 +72,7 @@ public class ListaUser  extends EstructuraDeDatos{
             while (aux.getSiguiente() != null) {
                 aux = aux.getSiguiente();
             }
-            aux.setSiguiente(aux);
+            aux.setSiguiente(nodoUser);
         }
         index++;
     }
@@ -105,6 +119,10 @@ public class ListaUser  extends EstructuraDeDatos{
 
     @Override
     public void delete(Object e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public NodoUser getUsuario(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

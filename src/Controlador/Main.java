@@ -5,6 +5,8 @@
 package Controlador;
 
 import FrmVistas.FrmMenuPrinciapal;
+
+
 import handlersImg.JEPGImageHandlerBN;
 import proyecto2.JPEGHandler;
 
@@ -15,6 +17,7 @@ import proyecto2.JPEGHandler;
 public class Main {
 
     public static void main(String[] args) {
+       
         FrmMenuPrinciapal vista = new FrmMenuPrinciapal();
         vista.setVisible(true);
 

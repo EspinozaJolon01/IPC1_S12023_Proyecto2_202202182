@@ -1,13 +1,14 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+
  */
 package FrmVistas;
 
 import Modelo.Usuario;
 import Modelo.Categoria;
 import Modelo.CategoriaDao;
+
 import Nodos.ListaUser;
+import Nodos.NodoUser;
 
 import javax.swing.JOptionPane;
 
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
-    ListaUser listarUser = new ListaUser();
+    static ListaUser listarUser = new ListaUser();
     CategoriaDao categoria = new CategoriaDao();
     Categoria cate;
 
@@ -26,7 +27,9 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
      */
     public FrmMenuPrinciapal() {
         initComponents();
+
         this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -236,22 +239,14 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
         if (!txtUsuario.getText().isEmpty()) {
 
-            if (listarUser.buscarUser(txtUsuario.getText())) {
-                System.out.println("primer if");
-                FrmBiblioteca vista1 = new FrmBiblioteca();
-                vista1.setVisible(true);
-                this.dispose();
+            Usuario user = new Usuario(txtUsuario.getText());
+            listarUser.add(user);
+            listarUser.listarNombres();
+            categoria.categoriaGeneral();
 
-            } else {
-                System.out.println("segundo else if");
-                Usuario user = new Usuario(txtUsuario.getText());
-                listarUser.add(user);
-                categoria.categoriaGeneral();
-                listarUser.listarNombres();
-                FrmBiblioteca vista1 = new FrmBiblioteca();
-                vista1.setVisible(true);
-                this.dispose();
-            }
+            FrmBiblioteca vista1 = new FrmBiblioteca();
+            vista1.setVisible(true);
+            this.dispose();
 
         } else {
             JOptionPane.showMessageDialog(this, "Debes de ingresa el nombre del usauario", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -277,38 +272,38 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmMenuPrinciapal().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(FrmMenuPrinciapal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new FrmMenuPrinciapal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConvertidor;
