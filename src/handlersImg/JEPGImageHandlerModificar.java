@@ -49,7 +49,7 @@ public class JEPGImageHandlerModificar extends ImageHandler {
                 bmp.setRGB(i, bmp.getHeight() - 1 - j, colorT.getRGB());
             }
         }
-        ImageIO.write(bmp, "jpg", new File("./HRotation-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmp, "jpg", new File("./VRotation-" + nombreCorto + ".jpg"));
         bmpTemporal.delete();
 
         for (int i = 0; i < (bmp2.getWidth() + 1) / 2; i++) {
@@ -61,7 +61,7 @@ public class JEPGImageHandlerModificar extends ImageHandler {
                 bmp2.setRGB(bmp2.getWidth() - 1 - i, j, colorT.getRGB());
             }
         }
-        ImageIO.write(bmp2, "jpg", new File("./VRotation-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmp2, "jpg", new File("./HRotation-" + nombreCorto + ".jpg"));
         bmpTemporal.delete();
     }
 

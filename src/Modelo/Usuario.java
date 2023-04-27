@@ -4,6 +4,8 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
@@ -11,14 +13,16 @@ package Modelo;
 public class Usuario {
 
     public String nombre;
+    public String Userlogueado;
     public String foto;
 
     public Usuario() {
-
+       
     }
 
     public Usuario(String nombre) {
         this.nombre = nombre;
+
     }
 
     public Usuario(String nombre, String foto) {

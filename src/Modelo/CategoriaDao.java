@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 public class CategoriaDao {
 
-    public static ArrayList<Categoria> categoria;
+    public static ArrayList<Categoria> categoria = new ArrayList<>();
+    public static ArrayList<Categoria> categoriasUser = new ArrayList<>();
 
     public CategoriaDao() {
 
-        categoria = new ArrayList<>();
     }
 
     public void categoriaGeneral() {
@@ -25,7 +25,14 @@ public class CategoriaDao {
         System.out.println(cate);
     }
 
-    public int buscarCategorias(String nombre) {
+    public static ArrayList agregarCategoriaUser(String user, Categoria categor) {
+
+        
+
+        return categoriasUser;
+    }
+   
+     public int buscarCategorias(String nombre) {
         int n = -1;
 
         for (int i = 0; i < categoria.size(); i++) {
@@ -47,4 +54,5 @@ public class CategoriaDao {
             return false;
         }
     }
+   
 }

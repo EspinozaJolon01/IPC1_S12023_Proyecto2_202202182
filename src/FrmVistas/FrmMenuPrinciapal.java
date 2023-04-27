@@ -21,6 +21,7 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
     static ListaUser listarUser = new ListaUser();
     CategoriaDao categoria = new CategoriaDao();
     Categoria cate;
+    public static String nombre;
 
     /**
      * Creates new form FrmMenuPrinciapl
@@ -239,7 +240,9 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
         if (!txtUsuario.getText().isEmpty()) {
 
+            System.out.println("else if");
             Usuario user = new Usuario(txtUsuario.getText());
+            nombre = txtUsuario.getText();
             listarUser.add(user);
             listarUser.listarNombres();
             categoria.categoriaGeneral();

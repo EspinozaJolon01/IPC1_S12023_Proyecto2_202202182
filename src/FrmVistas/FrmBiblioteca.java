@@ -4,7 +4,6 @@
  */
 package FrmVistas;
 
-
 import Modelo.Categoria;
 import Modelo.CategoriaDao;
 
@@ -25,27 +24,29 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     CategoriaDao cate1 = new CategoriaDao();
     DefaultListModel model = new DefaultListModel();
-
+    ListaUser categoira = new ListaUser();
 
     /**
      * Creates new form FrmBiblioteca
      */
     public FrmBiblioteca() {
+
         initComponents();
-       
+        txtUsuario.setText(FrmMenuPrinciapal.nombre);
+
         this.setLocationRelativeTo(null);
-        listarCategorias();
+        categorias();
 
     }
 
-    public void listarCategorias() {
-
+    public void categorias() {
         jList1.setModel(model);
-        
-        for (int i = 0; i < CategoriaDao.categoria.size(); i++) {
-            Categoria catego = CategoriaDao.categoria.get(i);
-            model.addElement(catego.getNombre());
 
+        for (int i = 0; i < NodoUser.categoria.size(); i++) {
+
+            Categoria cate = NodoUser.categoria.get(i);
+
+            model.addElement(cate.getNombre());
         }
     }
 
@@ -152,7 +153,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             }
         });
 
+        jList1.setForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(jList1);
+
+        txtUsuario.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,7 +243,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -254,17 +258,11 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
         if (!txtCategoria.getText().isEmpty()) {
 
-            Categoria categoria = new Categoria(txtCategoria.getText());
+            NodoUser nodo = new NodoUser(new Usuario(txtUsuario.getText()));
+            nodo.agregarCategoria(new Categoria(txtCategoria.getText()));
             txtCategoria.setText("");
 
-            if (cate1.agregarCategoria(categoria)) {
-                JOptionPane.showMessageDialog(this, "Se agregro categorio, exitosamente");
-                System.out.println(categoria);
-                model.addElement(cate1);
-
-            } else {
-                JOptionPane.showMessageDialog(this, "categoria repetida");
-            }
+            JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
 
         } else {
             JOptionPane.showMessageDialog(this, "Debes de llenar los campos necesitario");

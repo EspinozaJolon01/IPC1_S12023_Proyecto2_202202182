@@ -4,7 +4,10 @@
  */
 package Nodos;
 
+import Modelo.Categoria;
+import Modelo.CategoriaDao;
 import Modelo.Usuario;
+import java.util.ArrayList;
 
 import proyecto2.EstructuraDeDatos;
 
@@ -15,7 +18,7 @@ import proyecto2.EstructuraDeDatos;
 public class ListaUser extends EstructuraDeDatos {
 
     private NodoUser cabeza = null;
-
+   
     public void listarNombres() {
         NodoUser axu = cabeza;
         while (axu != null) {
@@ -39,11 +42,17 @@ public class ListaUser extends EstructuraDeDatos {
         return null;
     }
 
-    public boolean buscarUser(String d) {
+    public Object obtener(Object e) {
+        Usuario usuario = (Usuario) e;
+        return find(usuario);
+    }
+
+    public boolean buscarUser(Object e) {
         boolean encontrado = false;
+        String nombreUsuario = e.toString();
         NodoUser aux = cabeza;
         while (encontrado != true && aux != null) {
-            if (d.equals(aux.getUsuario())) {
+            if (aux.getUsuario().nombre.equals(nombreUsuario)) {
                 encontrado = true;
             } else {
                 aux = aux.getSiguiente();
@@ -55,6 +64,8 @@ public class ListaUser extends EstructuraDeDatos {
         }
         return encontrado;
     }
+
+  
 
     @Override
     public void add(Object e) {
@@ -80,6 +91,19 @@ public class ListaUser extends EstructuraDeDatos {
     @Override
     public Object peek() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String obtnerUser(Object e) {
+
+        NodoUser aux = this.cabeza;
+        String nombreUsuario = e.toString();
+        for (int i = 0; i < index; i++) {
+            if (aux.getUsuario().nombre.equals(nombreUsuario)) {
+                return aux.getUsuario().nombre;
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
     }
 
     @Override
