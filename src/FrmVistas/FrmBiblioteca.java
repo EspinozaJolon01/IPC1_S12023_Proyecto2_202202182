@@ -6,10 +6,12 @@ package FrmVistas;
 
 import Modelo.Categoria;
 import Modelo.CategoriaDao;
+import Modelo.Data;
 
 import Modelo.Usuario;
 import Nodos.ListaUser;
 import Nodos.NodoUser;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -22,34 +24,42 @@ import javax.swing.table.TableModel;
  */
 public class FrmBiblioteca extends javax.swing.JFrame {
 
-    CategoriaDao cate1 = new CategoriaDao();
-    DefaultListModel model = new DefaultListModel();
+    //CategoriaDao cate1 = new CategoriaDao();
+    DefaultListModel model;
     ListaUser categoira = new ListaUser();
+    Data data;
+    private ListaUser listaUsuarios;
+    NodoUser usuarioActual;
 
     /**
      * Creates new form FrmBiblioteca
      */
-    public FrmBiblioteca() {
+    public FrmBiblioteca(Data data, String nombre) {
 
         initComponents();
-        txtUsuario.setText(FrmMenuPrinciapal.nombre);
+        this.data = data;
+        model = new DefaultListModel();
+        txtUsuario.setText(nombre);
 
+        listaUsuarios = data.getListaUsuarios();
+        usuarioActual = listaUsuarios.getUsuario(nombre);
         this.setLocationRelativeTo(null);
-        categorias();
-
-    }
-
-    public void categorias() {
+        //categorias();
+        
         jList1.setModel(model);
-
-        for (int i = 0; i < NodoUser.categoria.size(); i++) {
-
-            Categoria cate = NodoUser.categoria.get(i);
-
-            model.addElement(cate.getNombre());
-        }
+        cargarCategorias();
     }
 
+//    public void categorias() {
+//        jList1.setModel(model);
+//        
+//        for (int i = 0; i < NodoUser.categoria.size(); i++) {
+//            
+//            Categoria cate = NodoUser.categoria.get(i);
+//            
+//            model.addElement(cate.getNombre());
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -248,7 +258,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        FrmMenuPrinciapal vista = new FrmMenuPrinciapal();
+        FrmMenuPrinciapal vista = new FrmMenuPrinciapal(data);
         vista.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -256,17 +266,16 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
         // TODO add your handling code here:
 
-        if (!txtCategoria.getText().isEmpty()) {
+        String categoriaNueva = txtCategoria.getText();
 
-            NodoUser nodo = new NodoUser(new Usuario(txtUsuario.getText()));
-            nodo.agregarCategoria(new Categoria(txtCategoria.getText()));
-            txtCategoria.setText("");
+        usuarioActual.agregarCategoria(categoriaNueva);
+        //NodoUser nodo = new NodoUser(new Usuario(txtUsuario.getText()));
+        //nodo.agregarCategoria(new Categoria(txtCategoria.getText()));
+        txtCategoria.setText("");
 
-            JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
+        JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
+        cargarCategorias();
 
-        } else {
-            JOptionPane.showMessageDialog(this, "Debes de llenar los campos necesitario");
-        }
 
     }//GEN-LAST:event_btnAgregarCategoriaActionPerformed
 
@@ -274,6 +283,16 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminacionCategoriaActionPerformed
 
+    private void cargarCategorias() {
+        ArrayList<String> listaCategorias = usuarioActual.getCategoria();
+
+        model.removeAllElements();
+        for (int i = 0; i < listaCategorias.size(); i++) {
+            //jListCategorias.add(listaCategorias.get(i), i);
+
+            model.addElement(listaCategorias.get(i));
+        }
+    }
     /**
      * @param args the command line arguments
      */

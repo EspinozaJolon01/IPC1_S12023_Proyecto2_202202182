@@ -15,26 +15,21 @@ import java.util.ArrayList;
  */
 public class NodoUser {
 
-    private Usuario usuario;
-    private NodoUser siguiente;
-    public static ArrayList<Categoria> categoria;
+    public String usuario;
+    public NodoUser siguiente;
+    public ArrayList<String> categoria;
 
-    public NodoUser(Usuario usuario) {
+    public NodoUser(String usuario) {
         this.usuario = usuario;
         categoria = new ArrayList<>();
-        categoria.add(new Categoria("General"));
-                
-    }
-    
-    public NodoUser(){
-        
+        categoria.add("General");
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
@@ -46,35 +41,18 @@ public class NodoUser {
         this.siguiente = siguiente;
     }
 
-    public ArrayList<Categoria> getCategoria() {
+    public ArrayList<String> getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(ArrayList<Categoria> categoria) {
+    public void setCategoria(ArrayList<String> categoria) {
         this.categoria = categoria;
     }
-    
-     public int buscarCategorias(String nombre) {
-        int n = -1;
 
-        for (int i = 0; i < categoria.size(); i++) {
-            if (categoria.get(i).getNombre().equals(nombre)) {
-                n = i;
-                break;
-            }
-        }
-        return n;
-    }
+    public void agregarCategoria(String categor) {
 
-    public boolean agregarCategoria(Categoria categor) {
-        if (buscarCategorias(categor.getNombre()) == -1) {
+        categoria.add(categor);
 
-            categoria.add(categor);
-            return true;
-
-        } else {
-            return false;
-        }
     }
 
 }

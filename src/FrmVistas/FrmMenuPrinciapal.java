@@ -6,6 +6,7 @@ package FrmVistas;
 import Modelo.Usuario;
 import Modelo.Categoria;
 import Modelo.CategoriaDao;
+import Modelo.Data;
 
 import Nodos.ListaUser;
 import Nodos.NodoUser;
@@ -18,17 +19,17 @@ import javax.swing.JOptionPane;
  */
 public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
-    static ListaUser listarUser = new ListaUser();
-    CategoriaDao categoria = new CategoriaDao();
-    Categoria cate;
-    public static String nombre;
+    //  static ListaUser listarUser = new ListaUser();
+    Data data;
+    private ListaUser listaUser;
 
     /**
      * Creates new form FrmMenuPrinciapl
      */
-    public FrmMenuPrinciapal() {
+    public FrmMenuPrinciapal(Data data) {
         initComponents();
-
+        this.data = data;
+        listaUser = data.getListaUsuarios();
         this.setLocationRelativeTo(null);
 
     }
@@ -240,26 +241,36 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
         if (!txtUsuario.getText().isEmpty()) {
 
-            System.out.println("else if");
-            Usuario user = new Usuario(txtUsuario.getText());
-            nombre = txtUsuario.getText();
-            listarUser.add(user);
-            listarUser.listarNombres();
-            categoria.categoriaGeneral();
+            String nombreUsuario = txtUsuario.getText().trim();
 
-            FrmBiblioteca vista1 = new FrmBiblioteca();
-            vista1.setVisible(true);
-            this.dispose();
+            if (listaUser.verificarUsuarioEnLista(nombreUsuario)) {
+                FrmBiblioteca vista1 = new FrmBiblioteca(data, nombreUsuario);
+                vista1.setVisible(true);
+                dispose();
 
+            } else {
+                NodoUser nuevoUsuario = new NodoUser(nombreUsuario);
+
+                listaUser.agregarNodo(nuevoUsuario);
+                txtUsuario.setText("");
+
+                FrmBiblioteca vista1 = new FrmBiblioteca(data, nuevoUsuario.getUsuario());
+                vista1.setVisible(true);
+                dispose();
+            }
+
+            //NodoUser nombreU = listaUser.getUsuario(nombreUsuario);
         } else {
-            JOptionPane.showMessageDialog(this, "Debes de ingresa el nombre del usauario", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe agregar los campos necesarios", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+
     }//GEN-LAST:event_btnIngresarBiblioActionPerformed
 
     private void btnEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorActionPerformed
         // TODO add your handling code here:
 
-        FrmEditor editor = new FrmEditor();
+        FrmEditor editor = new FrmEditor(data);
         editor.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEditorActionPerformed
@@ -267,7 +278,7 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
     private void btnConvertidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertidorActionPerformed
         // TODO add your handling code here:
 
-        FrmConvertidor convertido = new FrmConvertidor();
+        FrmConvertidor convertido = new FrmConvertidor(data);
         convertido.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConvertidorActionPerformed
