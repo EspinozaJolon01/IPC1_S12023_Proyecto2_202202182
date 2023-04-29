@@ -44,8 +44,8 @@ public class FrmEditor extends javax.swing.JFrame {
 
     public void cargarImage(String foto) {
         imagenU = new ImageIcon(foto);
-        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(jLIMG.getWidth(), jLIMG.getHeight(), Image.SCALE_DEFAULT));
-        jLIMG.setIcon(fotos);
+        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(JimagenIcono.getWidth(), JimagenIcono.getHeight(), Image.SCALE_DEFAULT));
+        JimagenIcono.setIcon(fotos);
     }
 
     public void radioButtonOpciones() {
@@ -66,7 +66,7 @@ public class FrmEditor extends javax.swing.JFrame {
         btnSeleccionImagen = new javax.swing.JButton();
         btnEjecutar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jLIMG = new javax.swing.JLabel();
+        JimagenIcono = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -104,7 +104,7 @@ public class FrmEditor extends javax.swing.JFrame {
             }
         });
 
-        jLIMG.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        JimagenIcono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("JPG a Bmp y viceversa");
@@ -136,14 +136,12 @@ public class FrmEditor extends javax.swing.JFrame {
                             .addGap(33, 33, 33)))
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JimagenIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSeleccionImagen)
                         .addGap(48, 48, 48))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -164,7 +162,7 @@ public class FrmEditor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnSeleccionImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JimagenIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE)
                 .addComponent(btnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -311,11 +309,11 @@ public class FrmEditor extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JimagenIcono;
     private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnSeleccionImagen;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLIMG;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;

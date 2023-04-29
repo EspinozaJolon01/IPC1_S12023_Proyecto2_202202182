@@ -125,7 +125,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtCategoria" max="32767" attributes="0"/>
                       <Component id="btnEliminacionCategoria" pref="35" max="32767" attributes="0"/>
-                      <Component id="btnAgregarCategoria" max="32767" attributes="0"/>
+                      <Component id="btnAgregarCategoria" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>

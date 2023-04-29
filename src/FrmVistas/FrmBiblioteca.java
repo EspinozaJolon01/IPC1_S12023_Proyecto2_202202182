@@ -45,7 +45,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         usuarioActual = listaUsuarios.getUsuario(nombre);
         this.setLocationRelativeTo(null);
         //categorias();
-        
+
         jList1.setModel(model);
         cargarCategorias();
     }
@@ -266,21 +266,44 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private void btnAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCategoriaActionPerformed
         // TODO add your handling code here:
 
-        String categoriaNueva = txtCategoria.getText();
+        if (!txtCategoria.getText().isEmpty()) {
+            String categoriaNueva = txtCategoria.getText();
 
-        usuarioActual.agregarCategoria(categoriaNueva);
-        //NodoUser nodo = new NodoUser(new Usuario(txtUsuario.getText()));
-        //nodo.agregarCategoria(new Categoria(txtCategoria.getText()));
-        txtCategoria.setText("");
+            if (usuarioActual.agregarCategoria(categoriaNueva)) {
 
-        JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
-        cargarCategorias();
+                //NodoUser nodo = new NodoUser(new Usuario(txtUsuario.getText()));
+                //nodo.agregarCategoria(new Categoria(txtCategoria.getText()));
+                txtCategoria.setText("");
+
+                JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
+                cargarCategorias();
+            } else {
+                 txtCategoria.setText("");
+                JOptionPane.showMessageDialog(this, "Categoria ya existe!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Dbe de llenar los campos necesarios", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
 
 
     }//GEN-LAST:event_btnAgregarCategoriaActionPerformed
 
     private void btnEliminacionCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminacionCategoriaActionPerformed
         // TODO add your handling code here:
+
+        if (jList1.getSelectedValue() != null) {
+            //aqui almaceno en un string el objeto seleccionado de la list 
+            String mensaje = jList1.getSelectedValue().toString();
+
+            usuarioActual.eliminarCategoria(mensaje);
+            JOptionPane.showMessageDialog(this, "La categoria: " + mensaje + " ha sido eliminada");
+            cargarCategorias();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes de selecciona la categoria a eliminar");
+        }
+
+
     }//GEN-LAST:event_btnEliminacionCategoriaActionPerformed
 
     private void cargarCategorias() {

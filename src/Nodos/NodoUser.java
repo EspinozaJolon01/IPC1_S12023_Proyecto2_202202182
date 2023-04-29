@@ -49,10 +49,34 @@ public class NodoUser {
         this.categoria = categoria;
     }
 
-    public void agregarCategoria(String categor) {
+    public boolean agregarCategoria(String categor) {
+        if (buscarCategoria(categor) == -1) {
+            categoria.add(categor);
+            return true;
+        } else {
+            return false;
+        }
 
-        categoria.add(categor);
+    }
 
+    public void eliminarCategoria(String catego) {
+        for (int i = 0; i < categoria.size(); i++) {
+            if (catego.equals(categoria.get(i))) {
+                categoria.remove(i);
+            }
+        }
+    }
+
+    public int buscarCategoria(String catego) {
+        int n = -1;
+        for (int i = 0; i < categoria.size(); i++) {
+            if (categoria.get(i).equals(catego)) {
+                n = i;
+                break;
+            }
+
+        }
+        return n;
     }
 
 }
