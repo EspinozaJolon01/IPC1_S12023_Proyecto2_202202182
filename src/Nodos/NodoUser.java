@@ -17,6 +17,7 @@ public class NodoUser {
 
     public String usuario;
     public NodoUser siguiente;
+   
     public ArrayList<String> categoria;
 
     public NodoUser(String usuario) {

@@ -9,10 +9,15 @@ import Modelo.CategoriaDao;
 import Modelo.Data;
 
 import Modelo.Usuario;
+import Nodos.ListaImagen;
 import Nodos.ListaUser;
 import Nodos.NodoUser;
+import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -26,10 +31,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     //CategoriaDao cate1 = new CategoriaDao();
     DefaultListModel model;
+    Usuario user = new Usuario();
     ListaUser categoira = new ListaUser();
+    ListaImagen listarImagen = new ListaImagen();
     Data data;
     private ListaUser listaUsuarios;
     NodoUser usuarioActual;
+    String imagen;
+    ImageIcon imagenU;
 
     /**
      * Creates new form FrmBiblioteca
@@ -46,20 +55,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //categorias();
 
+        imagen = user.getFoto();
+        cargarImage(user.getFoto());
+
         jList1.setModel(model);
         cargarCategorias();
     }
 
-//    public void categorias() {
-//        jList1.setModel(model);
-//        
-//        for (int i = 0; i < NodoUser.categoria.size(); i++) {
-//            
-//            Categoria cate = NodoUser.categoria.get(i);
-//            
-//            model.addElement(cate.getNombre());
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,13 +77,15 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         btnAgregarImagen = new javax.swing.JButton();
         btnEliminarImagen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         btnAgregarCategoria = new javax.swing.JButton();
         txtCategoria = new javax.swing.JTextField();
         btnEliminacionCategoria = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         txtUsuario = new javax.swing.JTextField();
+        btnAnteriro = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        jLMostrarImage = new javax.swing.JLabel();
 
         btnIngresarBiblio.setBackground(new java.awt.Color(0, 0, 51));
         btnIngresarBiblio.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,20 +132,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
-        jPanel2.setForeground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
-        );
-
         btnAgregarCategoria.setBackground(new java.awt.Color(0, 102, 153));
         btnAgregarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarCategoria.setText("Agregar Categorio");
@@ -168,6 +158,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
         txtUsuario.setEditable(false);
 
+        btnAnteriro.setText("Anterior");
+
+        btnSiguiente.setText("siguiente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -185,18 +179,23 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminacionCategoria))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(106, 106, 106))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAnteriro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLMostrarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSiguiente)))
+                .addGap(72, 72, 72))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,8 +215,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                    .addComponent(btnAnteriro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLMostrarImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCategoria)
@@ -243,16 +244,52 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private void btnIngresarBiblioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarBiblioActionPerformed
         // TODO add your handling code here:
 
+
     }//GEN-LAST:event_btnIngresarBiblioActionPerformed
+
+    public void cargarImage(String foto) {
+        imagenU = new ImageIcon(foto);
+        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_DEFAULT));
+        jLMostrarImage.setIcon(fotos);
+    }
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         // TODO add your handling code here:
+
+        if (jList1.getSelectedValue() != null) {
+            //aqui almaceno en un string el objeto seleccionado de la list 
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.setDialogTitle("buscar foto o imagen");
+
+            try {
+
+                if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+                    imagen = (jFileChooser.getSelectedFile().toString());
+                    listarImagen.agregarImagen(imagen);
+                    cargarImage(imagen);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes de selecciona una categoria, para agregar imagen");
+        }
 
 
     }//GEN-LAST:event_btnAgregarImagenActionPerformed
 
     private void btnEliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImagenActionPerformed
         // TODO add your handling code here:
+        if (jList1.getSelectedValue() != null) {
+            //aqui almaceno en un string el objeto seleccionado de la list 
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes de selecciona una categoria, para eliminar dicha imagen");
+        }
+
 
     }//GEN-LAST:event_btnEliminarImagenActionPerformed
 
@@ -278,7 +315,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "se agregado categoria nueva");
                 cargarCategorias();
             } else {
-                 txtCategoria.setText("");
+                txtCategoria.setText("");
                 JOptionPane.showMessageDialog(this, "Categoria ya existe!", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -354,14 +391,16 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCategoria;
     private javax.swing.JButton btnAgregarImagen;
+    private javax.swing.JButton btnAnteriro;
     private javax.swing.JButton btnEliminacionCategoria;
     private javax.swing.JButton btnEliminarImagen;
     private javax.swing.JButton btnIngresarBiblio;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLMostrarImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtUsuario;
