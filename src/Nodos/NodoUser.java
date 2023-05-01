@@ -17,11 +17,13 @@ public class NodoUser {
 
     public String usuario;
     public NodoUser siguiente;
-   
+    public ListaImagen listarImagenes;
+
     public ArrayList<String> categoria;
 
     public NodoUser(String usuario) {
         this.usuario = usuario;
+        this.listarImagenes = new ListaImagen();
         categoria = new ArrayList<>();
         categoria.add("General");
     }
@@ -48,6 +50,14 @@ public class NodoUser {
 
     public void setCategoria(ArrayList<String> categoria) {
         this.categoria = categoria;
+    }
+
+    public ListaImagen getListarImagenes() {
+        return listarImagenes;
+    }
+
+    public void setListarImagenes(ListaImagen listarImagenes) {
+        this.listarImagenes = listarImagenes;
     }
 
     public boolean agregarCategoria(String categor) {

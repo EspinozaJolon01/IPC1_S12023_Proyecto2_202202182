@@ -10,12 +10,14 @@ package Nodos;
  */
 public class NodoImagen {
 
+    private String categoria;
     private String imagen;
     private NodoImagen siguiente;
     private NodoImagen anterior;
 
-    public NodoImagen(String imagen) {
+    public NodoImagen(String imagen, String categoria) {
         this.imagen = imagen;
+        this.categoria = categoria;
         this.siguiente = null;
         this.anterior = null;
     }
@@ -26,6 +28,14 @@ public class NodoImagen {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public NodoImagen getSiguiente() {

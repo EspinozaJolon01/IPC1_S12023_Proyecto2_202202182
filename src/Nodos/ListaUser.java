@@ -55,6 +55,26 @@ public class ListaUser {
         return false;
     }
 
+    public String listarNombres() {
+        NodoUser axu = cabeza;
+        while (axu != null) {
+            return axu.getUsuario();
+        }
+        axu = axu.getSiguiente();
+
+        return null;
+    }
+    
+     public void listarNombre() {
+        NodoUser axu = cabeza;
+        while (axu != null) {
+            System.out.println("-------------------");
+            System.out.println(axu.getUsuario() + " --");
+            axu = axu.getSiguiente();
+        }
+        System.out.println("null \n");
+    }
+
 }
 
 // //   public boolean VerificarUsuarioEnLista(String usuario){

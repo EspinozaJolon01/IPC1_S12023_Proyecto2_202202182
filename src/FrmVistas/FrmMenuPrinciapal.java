@@ -253,6 +253,7 @@ public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
                 listaUser.agregarNodo(nuevoUsuario);
                 txtUsuario.setText("");
+               
 
                 FrmBiblioteca vista1 = new FrmBiblioteca(data, nuevoUsuario.getUsuario());
                 vista1.setVisible(true);

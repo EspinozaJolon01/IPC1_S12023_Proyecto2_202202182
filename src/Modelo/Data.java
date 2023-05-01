@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Nodos.ListaImagen;
 import Nodos.ListaUser;
 
 /**
@@ -13,9 +14,11 @@ import Nodos.ListaUser;
 public class Data {
 
     private ListaUser listaUsuarios;
+    private ListaImagen listarImagenes;
 
     public Data() {
         listaUsuarios = new ListaUser();
+        listarImagenes = new ListaImagen();
     }
 
     public ListaUser getListaUsuarios() {
@@ -24,6 +27,14 @@ public class Data {
 
     public void setListaUsuarios(ListaUser listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
+    }
+
+    public ListaImagen getListarImagenes() {
+        return listarImagenes;
+    }
+
+    public void setListarImagenes(ListaImagen listarImagenes) {
+        this.listarImagenes = listarImagenes;
     }
 
 }

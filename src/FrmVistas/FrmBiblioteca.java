@@ -11,6 +11,7 @@ import Modelo.Data;
 import Modelo.Usuario;
 import Nodos.ListaImagen;
 import Nodos.ListaUser;
+import Nodos.NodoImagen;
 import Nodos.NodoUser;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -30,12 +31,18 @@ import javax.swing.table.TableModel;
 public class FrmBiblioteca extends javax.swing.JFrame {
 
     //CategoriaDao cate1 = new CategoriaDao();
-    DefaultListModel model;
+    //clases
     Usuario user = new Usuario();
     ListaUser categoira = new ListaUser();
     ListaImagen listarImagen = new ListaImagen();
     Data data;
+    //modelos
+    DefaultListModel model;
+
+    //variables 
     private ListaUser listaUsuarios;
+    private ListaImagen listaImagenes;
+    NodoImagen ImgActual;
     NodoUser usuarioActual;
     String imagen;
     ImageIcon imagenU;
@@ -86,6 +93,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         btnAnteriro = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
         jLMostrarImage = new javax.swing.JLabel();
+        btnMimagen = new javax.swing.JButton();
 
         btnIngresarBiblio.setBackground(new java.awt.Color(0, 0, 51));
         btnIngresarBiblio.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,9 +166,32 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
         txtUsuario.setEditable(false);
 
-        btnAnteriro.setText("Anterior");
+        btnAnteriro.setBackground(new java.awt.Color(255, 255, 255));
+        btnAnteriro.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnteriro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/flechas-izquierda.png"))); // NOI18N
+        btnAnteriro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriroActionPerformed(evt);
+            }
+        });
 
-        btnSiguiente.setText("siguiente");
+        btnSiguiente.setBackground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/flechas-a-la-derecha.png"))); // NOI18N
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+
+        btnMimagen.setBackground(new java.awt.Color(0, 102, 153));
+        btnMimagen.setForeground(new java.awt.Color(255, 255, 255));
+        btnMimagen.setText("Mostrar Imagen ");
+        btnMimagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMimagenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -179,14 +210,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminacionCategoria))
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,8 +219,17 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLMostrarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSiguiente)))
-                .addGap(72, 72, 72))
+                        .addComponent(btnSiguiente)
+                        .addGap(72, 72, 72))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminacionCategoria)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMimagen)
+                        .addGap(50, 50, 50))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,14 +249,16 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                     .addComponent(btnAnteriro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLMostrarImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLMostrarImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCategoria)
-                    .addComponent(btnEliminacionCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEliminacionCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent(btnMimagen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAgregarCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -261,17 +297,12 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setDialogTitle("buscar foto o imagen");
 
-            try {
+            if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 
-                if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                imagen = (jFileChooser.getSelectedFile().toString());
 
-                    imagen = (jFileChooser.getSelectedFile().toString());
-                    listarImagen.agregarImagen(imagen);
-                    cargarImage(imagen);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "imagen agregada", "Actualizar", JOptionPane.INFORMATION_MESSAGE);
+                cargarImage(imagen);
             }
 
         } else {
@@ -343,6 +374,42 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEliminacionCategoriaActionPerformed
 
+    private void btnMimagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMimagenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMimagenActionPerformed
+
+    private void btnAnteriroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriroActionPerformed
+        // TODO add your handling code here:
+
+//        String categoriaSelec = jList1.getSelectedValue();
+//
+//        if (ImgActual != null) {
+//            if (categoriaSelec.equals(ImgActual.getCategoria())) {
+//                
+//                imagenU = new ImageIcon(foto);
+//        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_DEFAULT));
+//        jLMostrarImage.setIcon(fotos);
+//                imagenU = ImgActual.getImagePath();
+//                Image imagenNueva = new ImageIcon(rutaTemporal).getImage();
+//                ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH));
+//                lblImagen.setIcon(iconoNuevo);
+//            }
+//            ImgActual = ImgActual.getNodoAnterior();
+//
+//        }
+//
+//        if (ImgActual == null) {
+//            ImgActual = usuarioActual.getListaImagenes().getFinListaImagenes();
+//        }
+
+    }//GEN-LAST:event_btnAnteriroActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
     private void cargarCategorias() {
         ArrayList<String> listaCategorias = usuarioActual.getCategoria();
 
@@ -395,6 +462,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminacionCategoria;
     private javax.swing.JButton btnEliminarImagen;
     private javax.swing.JButton btnIngresarBiblio;
+    private javax.swing.JButton btnMimagen;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLMostrarImage;
