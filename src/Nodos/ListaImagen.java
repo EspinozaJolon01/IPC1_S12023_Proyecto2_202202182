@@ -37,6 +37,14 @@ public class ListaImagen {
         }
     }
 
+    public NodoImagen getListarImagenDelFinal() {
+        NodoImagen temporal = this.inicio;
+        while (temporal.getSiguiente() != null) {
+            temporal = temporal.getSiguiente();
+        }
+        return temporal;
+    }
+
     public NodoImagen getUltimo() {
         return ultimo;
     }

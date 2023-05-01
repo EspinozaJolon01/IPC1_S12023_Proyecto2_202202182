@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
 
 /**
@@ -200,13 +201,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarImagen)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarImagen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -291,18 +292,22 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         // TODO add your handling code here:
-
+        String urlImagen = "";
         if (jList1.getSelectedValue() != null) {
             //aqui almaceno en un string el objeto seleccionado de la list 
-            JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.setDialogTitle("buscar foto o imagen");
+            String categoriaSelec = jList1.getSelectedValue();
 
-            if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            JFileChooser jfileChooser = new JFileChooser();
+            FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("JPG", "jpg");
+            jfileChooser.setFileFilter(fileNameExtensionFilter);
 
-                imagen = (jFileChooser.getSelectedFile().toString());
+            int accionPorEjecutar = jfileChooser.showOpenDialog(this);
 
-                JOptionPane.showMessageDialog(this, "imagen agregada", "Actualizar", JOptionPane.INFORMATION_MESSAGE);
-                cargarImage(imagen);
+            if (accionPorEjecutar == jfileChooser.APPROVE_OPTION) {
+                urlImagen = jfileChooser.getSelectedFile().getPath();
+
+                usuarioActual.listarImagenes.agregarImagen(urlImagen, categoriaSelec);
+                JOptionPane.showMessageDialog(this, "Imagen agregada");
             }
 
         } else {
@@ -376,37 +381,84 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void btnMimagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMimagenActionPerformed
         // TODO add your handling code here:
+        String categoriaSelec = jList1.getSelectedValue();
+        String URLTemporal = "";
+
+        ImgActual = usuarioActual.getListarImagenes().getInicio();
+        if (jList1.getSelectedValue() != null) {
+            while (ImgActual != null) {
+                if (categoriaSelec.equals(ImgActual.getCategoria())) {
+                    URLTemporal = ImgActual.getRutaPath();
+                    Image imagenNueva = new ImageIcon(URLTemporal).getImage();
+                    ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
+                    jLMostrarImage.setIcon(iconoNuevo);
+                    btnAnteriro.setEnabled(true);
+                    btnSiguiente.setEnabled(true);
+                    break;
+                }
+                ImgActual = ImgActual.getSiguiente();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccionar una categoria", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (jList1.getSelectedValue() != null) {
+            if (ImgActual == null) {
+                jLMostrarImage.setIcon(null);
+                JOptionPane.showMessageDialog(this, "no hay imagenes", "ERROR", JOptionPane.ERROR_MESSAGE);
+                btnAnteriro.setEnabled(false);
+                btnSiguiente.setEnabled(false);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes de selecionar una categoria", " ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnMimagenActionPerformed
 
     private void btnAnteriroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriroActionPerformed
         // TODO add your handling code here:
+        String URLTemporal = "";
+        String categoriaSelec = jList1.getSelectedValue();
 
-//        String categoriaSelec = jList1.getSelectedValue();
-//
-//        if (ImgActual != null) {
-//            if (categoriaSelec.equals(ImgActual.getCategoria())) {
-//                
-//                imagenU = new ImageIcon(foto);
-//        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_DEFAULT));
-//        jLMostrarImage.setIcon(fotos);
-//                imagenU = ImgActual.getImagePath();
-//                Image imagenNueva = new ImageIcon(rutaTemporal).getImage();
-//                ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH));
-//                lblImagen.setIcon(iconoNuevo);
-//            }
-//            ImgActual = ImgActual.getNodoAnterior();
-//
-//        }
-//
-//        if (ImgActual == null) {
-//            ImgActual = usuarioActual.getListaImagenes().getFinListaImagenes();
-//        }
+        if (ImgActual != null) {
+            if (categoriaSelec.equals(ImgActual.getCategoria())) {
+
+                URLTemporal = ImgActual.getRutaPath();
+                Image imagenNueva = new ImageIcon(URLTemporal).getImage();
+                ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
+                jLMostrarImage.setIcon(iconoNuevo);
+            }
+            ImgActual = ImgActual.getAnterior();
+
+        }
+
+        if (ImgActual == null) {
+            ImgActual = usuarioActual.getListarImagenes().getListarImagenDelFinal();
+        }
 
     }//GEN-LAST:event_btnAnteriroActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+        String URLTemporal = "";
+        String categoriaSelec = jList1.getSelectedValue();
+        ImgActual = usuarioActual.listarImagenes.getInicio();
 
+        if (ImgActual != null) {
+            if (categoriaSelec.equals(ImgActual.getCategoria())) {
+                URLTemporal = ImgActual.getRutaPath();
+                Image imagenNueva = new ImageIcon(URLTemporal).getImage();
+                ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
+                jLMostrarImage.setIcon(iconoNuevo);
+            }
+            ImgActual = ImgActual.getSiguiente();
+        }
+
+        if (ImgActual == null) {
+            ImgActual = usuarioActual.getListarImagenes().getInicio();
+        }
 
     }//GEN-LAST:event_btnSiguienteActionPerformed
 

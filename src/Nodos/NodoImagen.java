@@ -10,14 +10,16 @@ package Nodos;
  */
 public class NodoImagen {
 
-    private String categoria;
     private String imagen;
+    private String categoria;
     private NodoImagen siguiente;
     private NodoImagen anterior;
+    private String rutaPath;
 
-    public NodoImagen(String imagen, String categoria) {
-        this.imagen = imagen;
+    public NodoImagen(String rutaPath, String categoria) {
+        //this.imagen = imagen;
         this.categoria = categoria;
+        this.rutaPath = rutaPath;
         this.siguiente = null;
         this.anterior = null;
     }
@@ -28,14 +30,6 @@ public class NodoImagen {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public NodoImagen getSiguiente() {
@@ -52,6 +46,22 @@ public class NodoImagen {
 
     public void setAnterior(NodoImagen anterior) {
         this.anterior = anterior;
+    }
+
+    public String getRutaPath() {
+        return rutaPath;
+    }
+
+    public void setRutaPath(String rutaPath) {
+        this.rutaPath = rutaPath;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }
