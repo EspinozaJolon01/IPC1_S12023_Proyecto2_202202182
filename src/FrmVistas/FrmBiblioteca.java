@@ -63,9 +63,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //categorias();
 
-        imagen = user.getFoto();
-        cargarImage(user.getFoto());
-
         jList1.setModel(model);
         cargarCategorias();
     }
@@ -284,11 +281,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnIngresarBiblioActionPerformed
 
-    public void cargarImage(String foto) {
-        imagenU = new ImageIcon(foto);
-        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_DEFAULT));
-        jLMostrarImage.setIcon(fotos);
-    }
 
     private void btnAgregarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImagenActionPerformed
         // TODO add your handling code here:
@@ -307,6 +299,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                 urlImagen = jfileChooser.getSelectedFile().getPath();
 
                 usuarioActual.listarImagenes.agregarImagen(urlImagen, categoriaSelec);
+                System.out.println(urlImagen);
                 JOptionPane.showMessageDialog(this, "Imagen agregada");
             }
 

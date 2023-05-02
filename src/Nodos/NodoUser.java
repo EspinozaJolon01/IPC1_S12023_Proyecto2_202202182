@@ -59,6 +59,8 @@ public class NodoUser {
     public void setListarImagenes(ListaImagen listarImagenes) {
         this.listarImagenes = listarImagenes;
     }
+    
+    
 
     public boolean agregarCategoria(String categor) {
         if (buscarCategoria(categor) == -1) {
@@ -89,5 +91,12 @@ public class NodoUser {
         }
         return n;
     }
+
+    @Override
+    public String toString() {
+        return "NodoUser{" + "usuario=" + usuario +  '}';
+    }
+    
+    
 
 }
