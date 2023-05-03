@@ -114,6 +114,11 @@ public class FrmEditor extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Rojo verde Azul sepia");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Modificar Imagen");
@@ -272,6 +277,10 @@ public class FrmEditor extends javax.swing.JFrame {
         vista.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments

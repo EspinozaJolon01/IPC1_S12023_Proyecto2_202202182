@@ -4,12 +4,16 @@
  */
 package FrmVistas;
 
+import Hilos.HiloBN;
+import Hilos.HiloColor;
 import Modelo.Data;
 import Nodos.ListaImagen;
 import Nodos.ListaUser;
 import Nodos.NodoImagen;
 import Nodos.NodoUser;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,10 +23,12 @@ import javax.swing.JOptionPane;
 public class FrmConvertidor extends javax.swing.JFrame {
 
     Data data;
+    NodoImagen imagenCategorias;
     ListaUser listaUser;
     NodoUser temporal;
     ListaImagen listasImagen;
     DefaultListModel model;
+    ArrayList<String> listaImagenes;
 
     /**
      * Creates new form FrmConvertidor
@@ -33,6 +39,8 @@ public class FrmConvertidor extends javax.swing.JFrame {
         listaUser = data.getListaUsuarios();
         this.setLocationRelativeTo(null);
         model = new DefaultListModel();
+        listaImagenes = new ArrayList<>();
+
         cargarUser();
     }
 
@@ -56,15 +64,13 @@ public class FrmConvertidor extends javax.swing.JFrame {
         jCheckBox5 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         btnMosta = new javax.swing.JButton();
-        btnSecuenciaLifo = new javax.swing.JButton();
         btnParalelo = new javax.swing.JButton();
-        btnSecuenciaFifo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnAgregar1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jlListarImagenes = new javax.swing.JList<>();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,30 +137,12 @@ public class FrmConvertidor extends javax.swing.JFrame {
             }
         });
 
-        btnSecuenciaLifo.setBackground(new java.awt.Color(0, 102, 153));
-        btnSecuenciaLifo.setForeground(new java.awt.Color(255, 255, 255));
-        btnSecuenciaLifo.setText("Ejecutar en secuencia LIFO");
-        btnSecuenciaLifo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSecuenciaLifoActionPerformed(evt);
-            }
-        });
-
         btnParalelo.setBackground(new java.awt.Color(0, 102, 153));
         btnParalelo.setForeground(new java.awt.Color(255, 255, 255));
         btnParalelo.setText("Ejecutar en paralelo");
         btnParalelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnParaleloActionPerformed(evt);
-            }
-        });
-
-        btnSecuenciaFifo.setBackground(new java.awt.Color(0, 102, 153));
-        btnSecuenciaFifo.setForeground(new java.awt.Color(255, 255, 255));
-        btnSecuenciaFifo.setText("Ejecutar en  secuencia FIFO");
-        btnSecuenciaFifo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSecuenciaFifoActionPerformed(evt);
             }
         });
 
@@ -175,25 +163,12 @@ public class FrmConvertidor extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Cantidad Procesada");
 
-        btnAgregar1.setBackground(new java.awt.Color(0, 102, 153));
-        btnAgregar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar1.setText("Agregar");
-        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregar1ActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setViewportView(jlListarImagenes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,43 +177,44 @@ public class FrmConvertidor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JCusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnSecuenciaLifo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnParalelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(53, 53, 53))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                                .addComponent(btnParalelo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMosta, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)
+                                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 295, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMosta, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSecuenciaFifo)
-                        .addGap(50, 50, 50))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(376, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(211, 211, 211)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(507, 507, 507)
-                    .addComponent(btnAgregar1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addGap(43, 43, 43)))
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(214, 214, 214))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,40 +233,31 @@ public class FrmConvertidor extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnParalelo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnSecuenciaLifo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnSecuenciaFifo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(135, 135, 135))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnParalelo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(154, 154, 154))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)))
                 .addComponent(jLabel3)
                 .addGap(88, 88, 88))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(372, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addGap(174, 174, 174)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(121, 121, 121)
-                    .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(462, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,17 +287,31 @@ public class FrmConvertidor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnMostaActionPerformed
 
-    private void btnSecuenciaLifoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecuenciaLifoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSecuenciaLifoActionPerformed
-
     private void btnParaleloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParaleloActionPerformed
         // TODO add your handling code here:
+        jListToArrayList(jlListarImagenes);
+
+        if (jCheckBox3.isSelected()) {
+            HiloBN hilo1 = new HiloBN(listaImagenes);
+            hilo1.start();
+        } else if (jCheckBox4.isSelected()) {
+            HiloColor hilo2 = new HiloColor(listaImagenes);
+            hilo2.start();
+        }
+
+
     }//GEN-LAST:event_btnParaleloActionPerformed
 
-    private void btnSecuenciaFifoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecuenciaFifoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSecuenciaFifoActionPerformed
+    public ArrayList<String> jListToArrayList(JList<String> jListImagenes) {
+        //  listaImagenes = new ArrayList<>();
+        for (int i = 0; i < jListImagenes.getModel().getSize(); i++) {
+            String img = jListImagenes.getModel().getElementAt(i);
+            listaImagenes.add(img);
+
+        }
+        return listaImagenes;
+    }
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -363,10 +344,6 @@ public class FrmConvertidor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JCusuariosActionPerformed
 
-    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregar1ActionPerformed
-
     public void cargarUser() {
 
         NodoUser temporal2 = listaUser.getCabeza();
@@ -378,7 +355,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
     }
 
     public void cargarImagenesCategorias() {
-        model.removeAllElements();
+        // model.removeAllElements();
 
         String usuarioActual = JCusuarios.getSelectedItem().toString();
         String categoriaActual = jComboBox1.getSelectedItem().toString();
@@ -386,7 +363,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
         System.out.println("Usuario: " + usuarioActual + " categoria: " + categoriaActual);
 
         listasImagen = temporal.getListarImagenes();  // la lista doble del usuario actual
-        NodoImagen imagenCategorias = listasImagen.getInicio(); //nodo de la lista doble de la usario actual
+        imagenCategorias = listasImagen.getInicio(); //nodo de la lista doble de la usario actual
 
         while (imagenCategorias != null) {
 
@@ -394,6 +371,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
 
                 jlListarImagenes.setModel(model);
                 model.addElement(imagenCategorias.getRutaPath());
+                System.out.println(imagenCategorias.getRutaPath());
 
             }
 
@@ -444,11 +422,8 @@ public class FrmConvertidor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JCusuarios;
-    private javax.swing.JButton btnAgregar1;
     private javax.swing.JButton btnMosta;
     private javax.swing.JButton btnParalelo;
-    private javax.swing.JButton btnSecuenciaFifo;
-    private javax.swing.JButton btnSecuenciaLifo;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -461,6 +436,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> jlListarImagenes;
     // End of variables declaration//GEN-END:variables
