@@ -67,11 +67,11 @@ public class FrmEditor extends javax.swing.JFrame {
         btnEjecutar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         JimagenIcono = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButtonJpgABmp = new javax.swing.JRadioButton();
+        jRadioButtonCopia = new javax.swing.JRadioButton();
+        jRadioButtonColores = new javax.swing.JRadioButton();
+        jRadioButtonModifca = new javax.swing.JRadioButton();
+        jRadioButtonBlancoYNegro = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,25 +106,30 @@ public class FrmEditor extends javax.swing.JFrame {
 
         JimagenIcono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("JPG a Bmp y viceversa");
+        buttonGroup1.add(jRadioButtonJpgABmp);
+        jRadioButtonJpgABmp.setText("JPG a Bmp y viceversa");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("copia JPG");
+        buttonGroup1.add(jRadioButtonCopia);
+        jRadioButtonCopia.setText("copia JPG");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Rojo verde Azul sepia");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(jRadioButtonColores);
+        jRadioButtonColores.setText("Rojo verde Azul sepia");
+        jRadioButtonColores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                jRadioButtonColoresActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("Modificar Imagen");
+        buttonGroup1.add(jRadioButtonModifca);
+        jRadioButtonModifca.setText("Modificar Imagen");
+        jRadioButtonModifca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonModifcaActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("Blanco y negro");
+        buttonGroup1.add(jRadioButtonBlancoYNegro);
+        jRadioButtonBlancoYNegro.setText("Blanco y negro");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,14 +138,14 @@ public class FrmEditor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButtonCopia)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButtonJpgABmp)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jRadioButton5)
+                            .addComponent(jRadioButtonBlancoYNegro)
                             .addGap(33, 33, 33)))
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(jRadioButtonColores)
+                    .addComponent(jRadioButtonModifca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -173,15 +178,15 @@ public class FrmEditor extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(jRadioButton1)
+                .addComponent(jRadioButtonJpgABmp)
                 .addGap(32, 32, 32)
-                .addComponent(jRadioButton2)
+                .addComponent(jRadioButtonCopia)
                 .addGap(42, 42, 42)
-                .addComponent(jRadioButton3)
+                .addComponent(jRadioButtonColores)
                 .addGap(41, 41, 41)
-                .addComponent(jRadioButton4)
+                .addComponent(jRadioButtonModifca)
                 .addGap(43, 43, 43)
-                .addComponent(jRadioButton5)
+                .addComponent(jRadioButtonBlancoYNegro)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -216,7 +221,7 @@ public class FrmEditor extends javax.swing.JFrame {
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         // TODO add your handling code here:
 
-        if (jRadioButton5.isSelected()) {
+        if (jRadioButtonBlancoYNegro.isSelected()) {
             JEPGImageHandlerBN handlerBn = new JEPGImageHandlerBN(imagen);
             try {
                 JPEGHandler.runHandler(handlerBn);
@@ -224,14 +229,14 @@ public class FrmEditor extends javax.swing.JFrame {
                 e.printStackTrace();
             }
 
-        } else if (jRadioButton3.isSelected()) {
+        } else if (jRadioButtonColores.isSelected()) {
             JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(imagen);
             try {
                 JPEGHandler.runHandler(handlerColores);
             } catch (Exception o) {
                 o.printStackTrace();
             }
-        } else if (jRadioButton2.isSelected()) {
+        } else if (jRadioButtonCopia.isSelected()) {
             JEPGImageHandlerCopia handlerCopia = new JEPGImageHandlerCopia(imagen);
             try {
                 JPEGHandler.runHandler(handlerCopia);
@@ -239,7 +244,7 @@ public class FrmEditor extends javax.swing.JFrame {
             } catch (Exception k) {
                 k.printStackTrace();
             }
-        } else if (jRadioButton4.isSelected()) {
+        } else if (jRadioButtonModifca.isSelected()) {
             JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(imagen);
             try {
                 JPEGHandler.runHandler(handlersModificar);
@@ -247,7 +252,7 @@ public class FrmEditor extends javax.swing.JFrame {
                 k.printStackTrace();
             }
 
-        } else if (jRadioButton1.isSelected()) {
+        } else if (jRadioButtonJpgABmp.isSelected()) {
             if (imagen.toLowerCase().endsWith(".jpg")) {
                 JEPGImageHandlerBmp handlresBmp = new JEPGImageHandlerBmp(imagen);
                 try {
@@ -278,9 +283,13 @@ public class FrmEditor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void jRadioButtonColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonColoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_jRadioButtonColoresActionPerformed
+
+    private void jRadioButtonModifcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonModifcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonModifcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,10 +333,10 @@ public class FrmEditor extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButtonBlancoYNegro;
+    private javax.swing.JRadioButton jRadioButtonColores;
+    private javax.swing.JRadioButton jRadioButtonCopia;
+    private javax.swing.JRadioButton jRadioButtonJpgABmp;
+    private javax.swing.JRadioButton jRadioButtonModifca;
     // End of variables declaration//GEN-END:variables
 }
