@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import proyecto2.JPEGHandler;
 
 /**
@@ -29,6 +30,7 @@ public class FrmEditor extends javax.swing.JFrame {
     ImageIcon imagenU;
     Usuario user = new Usuario();
     Data data;
+    String urlImagen = "";
 
     /**
      * Creates new form FrmEditor
@@ -37,18 +39,7 @@ public class FrmEditor extends javax.swing.JFrame {
 
         initComponents();
         this.data = data;
-        imagen = user.getFoto();
         this.setLocationRelativeTo(null);
-        cargarImage(user.getFoto());
-    }
-
-    public void cargarImage(String foto) {
-        imagenU = new ImageIcon(foto);
-        Icon fotos = new ImageIcon(imagenU.getImage().getScaledInstance(JimagenIcono.getWidth(), JimagenIcono.getHeight(), Image.SCALE_DEFAULT));
-        JimagenIcono.setIcon(fotos);
-    }
-
-    public void radioButtonOpciones() {
 
     }
 
@@ -207,67 +198,82 @@ public class FrmEditor extends javax.swing.JFrame {
     private void btnSeleccionImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionImagenActionPerformed
         // TODO add your handling code here:
 
-        JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.setDialogTitle("buscar foto o imagen");
+        JFileChooser jfileChooser = new JFileChooser();
+        FileNameExtensionFilter extensionImagen = new FileNameExtensionFilter("JPG", "jpg");
+        jfileChooser.setFileFilter(extensionImagen);
 
-        if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        int accionPorEjecutar = jfileChooser.showOpenDialog(this);
 
-            imagen = (jFileChooser.getSelectedFile().toString());
+        if (accionPorEjecutar == jfileChooser.APPROVE_OPTION) {
+            urlImagen = jfileChooser.getSelectedFile().getPath();
+            Image imagenNueva = new ImageIcon(urlImagen).getImage();
+            ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(JimagenIcono.getWidth(), JimagenIcono.getHeight(), Image.SCALE_SMOOTH));
+            JimagenIcono.setIcon(iconoNuevo);
 
-            cargarImage(imagen);
         }
     }//GEN-LAST:event_btnSeleccionImagenActionPerformed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         // TODO add your handling code here:
 
-        if (jRadioButtonBlancoYNegro.isSelected()) {
-            JEPGImageHandlerBN handlerBn = new JEPGImageHandlerBN(imagen);
-            try {
-                JPEGHandler.runHandler(handlerBn);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (JimagenIcono.getIcon() == null) {
+            JOptionPane.showMessageDialog(this, "debes de seleccionar una imagen");
+            return;
+        }
 
-        } else if (jRadioButtonColores.isSelected()) {
-            JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(imagen);
-            try {
-                JPEGHandler.runHandler(handlerColores);
-            } catch (Exception o) {
-                o.printStackTrace();
-            }
-        } else if (jRadioButtonCopia.isSelected()) {
-            JEPGImageHandlerCopia handlerCopia = new JEPGImageHandlerCopia(imagen);
-            try {
-                JPEGHandler.runHandler(handlerCopia);
-                System.out.println(imagen);
-            } catch (Exception k) {
-                k.printStackTrace();
-            }
-        } else if (jRadioButtonModifca.isSelected()) {
-            JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(imagen);
-            try {
-                JPEGHandler.runHandler(handlersModificar);
-            } catch (Exception k) {
-                k.printStackTrace();
-            }
-
-        } else if (jRadioButtonJpgABmp.isSelected()) {
-            if (imagen.toLowerCase().endsWith(".jpg")) {
-                JEPGImageHandlerBmp handlresBmp = new JEPGImageHandlerBmp(imagen);
+        if (jRadioButtonBlancoYNegro.isSelected() == false && jRadioButtonColores.isSelected() == false && jRadioButtonCopia.isSelected() == false
+                && jRadioButtonModifca.isSelected() == false && jRadioButtonJpgABmp.isSelected() == false) {
+            JOptionPane.showMessageDialog(this, "Debes de seleccionar un opción");
+            return;
+        } else {
+            if (jRadioButtonBlancoYNegro.isSelected()) {
+                JEPGImageHandlerBN handlerBn = new JEPGImageHandlerBN(urlImagen);
                 try {
-                    JPEGHandler.runHandler(handlresBmp);
-                } catch (Exception p) {
-                    p.printStackTrace();
+                    JPEGHandler.runHandler(handlerBn);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-            } else if (imagen.toLowerCase().endsWith(".bmp")) {
-                JEPGImageHandlerJPEG handlresJEPG = new JEPGImageHandlerJPEG(imagen);
+            } else if (jRadioButtonColores.isSelected()) {
+                JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(urlImagen);
                 try {
-                    JPEGHandler.runHandler(handlresJEPG);
+                    JPEGHandler.runHandler(handlerColores);
+                } catch (Exception o) {
+                    o.printStackTrace();
+                }
+            } else if (jRadioButtonCopia.isSelected()) {
+                JEPGImageHandlerCopia handlerCopia = new JEPGImageHandlerCopia(urlImagen);
+                try {
+                    JPEGHandler.runHandler(handlerCopia);
+                    System.out.println(imagen);
+                } catch (Exception k) {
+                    k.printStackTrace();
+                }
+            } else if (jRadioButtonModifca.isSelected()) {
+                JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(urlImagen);
+                try {
+                    JPEGHandler.runHandler(handlersModificar);
+                } catch (Exception k) {
+                    k.printStackTrace();
+                }
 
-                } catch (Exception j) {
-                    j.printStackTrace();
+            } else if (jRadioButtonJpgABmp.isSelected()) {
+                if (imagen.toLowerCase().endsWith(".jpg")) {
+                    JEPGImageHandlerBmp handlresBmp = new JEPGImageHandlerBmp(urlImagen);
+                    try {
+                        JPEGHandler.runHandler(handlresBmp);
+                    } catch (Exception p) {
+                        p.printStackTrace();
+                    }
+
+                } else if (imagen.toLowerCase().endsWith(".bmp")) {
+                    JEPGImageHandlerJPEG handlresJEPG = new JEPGImageHandlerJPEG(urlImagen);
+                    try {
+                        JPEGHandler.runHandler(handlresJEPG);
+
+                    } catch (Exception j) {
+                        j.printStackTrace();
+                    }
                 }
             }
 

@@ -288,38 +288,44 @@ public class FrmConvertidor extends javax.swing.JFrame {
     private void btnParaleloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParaleloActionPerformed
         // TODO add your handling code here:
 
-      //  jListToArrayList(jlListarImagenes);
+        //  jListToArrayList(jlListarImagenes);
+        if (jRadioButtonBlancoYNegro.isSelected() == false && jRadioButtonColores.isSelected() == false && jRadioButtonModificar.isSelected() == false
+                && jRadioButtonCopiaImg.isSelected() == false && jRadioButtonJpgABmp.isSelected() == false) {
+            JOptionPane.showMessageDialog(this, "Debes de seleccionar un opcion ");
+            return;
+        } else {
+            hPorceso = new HiloPorgreso(BarProgreso, listaImagenes);
+            hPorceso.start();
 
-        hPorceso = new HiloPorgreso(BarProgreso, listaImagenes);
-        hPorceso.start();
-
-        if (jRadioButtonBlancoYNegro.isSelected()) {
-            HiloBN hilo1 = new HiloBN(listaImagenes, txtAreaMensajes);
-            hilo1.start();
-        }
-        if (jRadioButtonColores.isSelected()) {
-            HiloColor hilo2 = new HiloColor(listaImagenes, txtAreaMensajes);
-            hilo2.start();
-        }
-        if (jRadioButtonModificar.isSelected()) {
-            HiloModificar hilo3 = new HiloModificar(listaImagenes, txtAreaMensajes);
-            hilo3.start();
-        }
-        if (jRadioButtonCopiaImg.isSelected()) {
-            HiloCopia hilo4 = new HiloCopia(listaImagenes, txtAreaMensajes);
-            hilo4.start();
-        }
-        if (jRadioButtonJpgABmp.isSelected()) {
-            if (imagenCategorias.getRutaPath().toLowerCase().endsWith(".jpg")) {
-                HiloJPG hilo5 = new HiloJPG(listaImagenes, txtAreaMensajes);
-                hilo5.start();
-            } else if (imagenCategorias.getRutaPath().toLowerCase().endsWith(".bmp")) {
-                HiloBmp hilo6 = new HiloBmp(listaImagenes, txtAreaMensajes);
-                hilo6.start();
+            if (jRadioButtonBlancoYNegro.isSelected()) {
+                HiloBN hilo1 = new HiloBN(listaImagenes, txtAreaMensajes);
+                hilo1.start();
             }
+            if (jRadioButtonColores.isSelected()) {
+                HiloColor hilo2 = new HiloColor(listaImagenes, txtAreaMensajes);
+                hilo2.start();
+            }
+            if (jRadioButtonModificar.isSelected()) {
+                HiloModificar hilo3 = new HiloModificar(listaImagenes, txtAreaMensajes);
+                hilo3.start();
+            }
+            if (jRadioButtonCopiaImg.isSelected()) {
+                HiloCopia hilo4 = new HiloCopia(listaImagenes, txtAreaMensajes);
+                hilo4.start();
+            }
+            if (jRadioButtonJpgABmp.isSelected()) {
+                if (imagenCategorias.getRutaPath().toLowerCase().endsWith(".jpg")) {
+                    HiloJPG hilo5 = new HiloJPG(listaImagenes, txtAreaMensajes);
+                    hilo5.start();
+                } else if (imagenCategorias.getRutaPath().toLowerCase().endsWith(".bmp")) {
+                    HiloBmp hilo6 = new HiloBmp(listaImagenes, txtAreaMensajes);
+                    hilo6.start();
+                }
+            }
+
+            txtAreaMensajes.setText("");
         }
-        
-        txtAreaMensajes.setText("");
+
 
     }//GEN-LAST:event_btnParaleloActionPerformed
 
@@ -385,7 +391,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
         String path = "";
         String fileName = "";
         // modelo.removeAllElements();
-       
+
         String usuarioActual = JCusuarios.getSelectedItem().toString();
         String categoriaActual = jComboBox1.getSelectedItem().toString();
 
@@ -398,8 +404,8 @@ public class FrmConvertidor extends javax.swing.JFrame {
 
             if (imagenCategorias.getCategoria().equals(categoriaActual)) {
 
-                path=imagenCategorias.getRutaPath();
-                fileName=path.substring(path.lastIndexOf("\\") + 1, path.lastIndexOf('.'));
+                path = imagenCategorias.getRutaPath();
+                fileName = path.substring(path.lastIndexOf("\\") + 1, path.lastIndexOf('.'));
                 jlListarImagenes.setModel(model);
                 model.addElement(fileName);
                 listaImagenes.add(path);
