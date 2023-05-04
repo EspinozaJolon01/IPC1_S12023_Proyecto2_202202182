@@ -7,24 +7,29 @@ package Hilos;
 import handlersImg.JEPGImageHandlerBN;
 import handlersImg.JEPGImagenHandlerColores;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import proyecto2.JPEGHandler;
 
 /**
  *
  * @author Usuario
  */
-public class HiloColor  extends Thread{
-      ArrayList<String> imagenes;
+public class HiloColor extends Thread {
 
-    public HiloColor(ArrayList<String> imagenes) {
+    ArrayList<String> imagenes;
+    JTextArea txtArea;
+
+    public HiloColor(ArrayList<String> imagenes, JTextArea txtArea) {
         this.imagenes = imagenes;
+        this.txtArea = txtArea;
     }
 
     @Override
     public void run() {
 
         for (int i = 0; i < imagenes.size(); i++) {
-             JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(imagenes.get(i));
+            JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(imagenes.get(i));
+            txtArea.append("\nejecucion terminada de realizar multi colores: " + imagenes.get(i));
             try {
                 JPEGHandler.runHandler(handlerColores);
             } catch (Exception o) {

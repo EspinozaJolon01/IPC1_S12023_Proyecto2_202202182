@@ -6,6 +6,7 @@ package Hilos;
 
 import handlersImg.JEPGImageHandlerBN;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import proyecto2.JPEGHandler;
 
 /**
@@ -15,9 +16,11 @@ import proyecto2.JPEGHandler;
 public class HiloBN extends Thread {
 
     ArrayList<String> imagenes;
+    JTextArea txtArea;
 
-    public HiloBN(ArrayList<String> imagenes) {
+    public HiloBN(ArrayList<String> imagenes, JTextArea txtArea) {
         this.imagenes = imagenes;
+        this.txtArea = txtArea;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class HiloBN extends Thread {
 
         for (int i = 0; i < imagenes.size(); i++) {
             JEPGImageHandlerBN handlerBn = new JEPGImageHandlerBN(imagenes.get(i));
+            txtArea.append("\nejecucion terminada, de convertir a blanco y negro: " + imagenes.get(i));
             try {
                 JPEGHandler.runHandler(handlerBn);
             } catch (Exception e) {

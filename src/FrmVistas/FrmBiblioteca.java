@@ -47,6 +47,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     NodoUser usuarioActual;
     String imagen;
     ImageIcon imagenU;
+    static String URLTemporal = "";
 
     /**
      * Creates new form FrmBiblioteca
@@ -315,6 +316,19 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         if (jList1.getSelectedValue() != null) {
             //aqui almaceno en un string el objeto seleccionado de la list 
 
+            String categoriaSelec = jList1.getSelectedValue();
+
+            if (ImgActual != null) {
+
+                usuarioActual.listarImagenes.eliminaImagen(URLTemporal, categoriaSelec);
+                System.out.println("<url eliminado>" + URLTemporal);
+                JOptionPane.showMessageDialog(this, "la imagen ha sido eliminada");
+//                    Image imagenNueva = new ImageIcon(URLTemporal).getImage();
+//                    ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
+//                    jLMostrarImage.setIcon(iconoNuevo);
+
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Debes de selecciona una categoria, para eliminar dicha imagen");
         }
@@ -375,7 +389,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private void btnMimagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMimagenActionPerformed
         // TODO add your handling code here:
         String categoriaSelec = jList1.getSelectedValue();
-        String URLTemporal = "";
+        //String URLTemporal = "";
 
         ImgActual = usuarioActual.getListarImagenes().getInicio();
         if (jList1.getSelectedValue() != null) {
@@ -412,13 +426,16 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void btnAnteriroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriroActionPerformed
         // TODO add your handling code here:
-        String URLTemporal = "";
+        //  String URLTemporal = "";
         String categoriaSelec = jList1.getSelectedValue();
 
         if (ImgActual != null) {
             if (categoriaSelec.equals(ImgActual.getCategoria())) {
 
                 URLTemporal = ImgActual.getRutaPath();
+
+                System.out.println("anteriro");
+                System.out.println(URLTemporal);
                 Image imagenNueva = new ImageIcon(URLTemporal).getImage();
                 ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
                 jLMostrarImage.setIcon(iconoNuevo);
@@ -435,13 +452,15 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-        String URLTemporal = "";
+        //String URLTemporal = "";
         String categoriaSelec = jList1.getSelectedValue();
         ImgActual = usuarioActual.listarImagenes.getInicio();
 
         if (ImgActual != null) {
             if (categoriaSelec.equals(ImgActual.getCategoria())) {
                 URLTemporal = ImgActual.getRutaPath();
+                System.out.println("siguiente");
+                System.out.println(URLTemporal);
                 Image imagenNueva = new ImageIcon(URLTemporal).getImage();
                 ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
                 jLMostrarImage.setIcon(iconoNuevo);

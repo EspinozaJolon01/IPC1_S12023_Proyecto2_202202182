@@ -6,6 +6,7 @@ package Hilos;
 
 import handlersImg.JEPGImageHandlerJPEG;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import proyecto2.JPEGHandler;
 
 /**
@@ -15,9 +16,11 @@ import proyecto2.JPEGHandler;
 public class HiloBmp extends Thread {
 
     ArrayList<String> imagenes;
+    JTextArea txtArea;
 
-    public HiloBmp(ArrayList<String> imagenes) {
+    public HiloBmp(ArrayList<String> imagenes, JTextArea txtArea) {
         this.imagenes = imagenes;
+        this.txtArea = txtArea;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class HiloBmp extends Thread {
 
         for (int i = 0; i < imagenes.size(); i++) {
             JEPGImageHandlerJPEG handlresJEPG = new JEPGImageHandlerJPEG(imagenes.get(i));
+            txtArea.append("\nejecucion terminada, de convertir a bmp: " + imagenes.get(i));
             try {
                 JPEGHandler.runHandler(handlresJEPG);
 

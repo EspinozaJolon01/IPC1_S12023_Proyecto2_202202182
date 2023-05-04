@@ -26,17 +26,22 @@ public class HiloPorgreso extends Thread {
 
     @Override
     public void run() {
+        int i = 0;
 
-        for (int i = 0; i < 100; i++) {
+        for (i = 0; i < 100; i++) {
             barProce.setValue(i);
 
             try {
-                sleep(imagenes.size()*5);
+                sleep(imagenes.size() * 5);
             } catch (InterruptedException ex) {
                 Logger.getLogger(HiloPorgreso.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println("finalizado");
+
+        if (i == 100) {
+            JOptionPane.showMessageDialog(null, "Ha terminado el converidor de imagenes");
+            return;
+        }
 
     }
 

@@ -12,9 +12,9 @@ public class NodoImagen {
 
     private String imagen;
     private String categoria;
-    private NodoImagen siguiente;
-    private NodoImagen anterior;
-    private String rutaPath;
+    public NodoImagen siguiente;
+    public NodoImagen anterior;
+    public String rutaPath;
 
     public NodoImagen(String rutaPath, String categoria) {
         //this.imagen = imagen;

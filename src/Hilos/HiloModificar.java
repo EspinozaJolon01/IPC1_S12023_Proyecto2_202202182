@@ -6,6 +6,7 @@ package Hilos;
 
 import handlersImg.JEPGImageHandlerModificar;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 import proyecto2.JPEGHandler;
 
 /**
@@ -15,16 +16,19 @@ import proyecto2.JPEGHandler;
 public class HiloModificar extends Thread {
 
     ArrayList<String> imagenes;
+    JTextArea txtArea;
 
-    public HiloModificar(ArrayList<String> imagenes) {
+    public HiloModificar(ArrayList<String> imagenes, JTextArea txtArea) {
         this.imagenes = imagenes;
+        this.txtArea =  txtArea;
     }
 
     @Override
     public void run() {
-        
+
         for (int i = 0; i < imagenes.size(); i++) {
-                    JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(imagenes.get(i));
+            JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(imagenes.get(i));
+             txtArea.append("\nejecucion terminada, de modificar la imagen: " + imagenes.get(i));
             try {
                 JPEGHandler.runHandler(handlersModificar);
             } catch (Exception k) {
