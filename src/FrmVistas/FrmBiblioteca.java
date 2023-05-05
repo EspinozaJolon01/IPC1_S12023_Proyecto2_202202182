@@ -4,9 +4,9 @@
  */
 package FrmVistas;
 
-import Modelo.Categoria;
-import Modelo.CategoriaDao;
-import Modelo.Data;
+
+
+import Modelo.ControlData;
 
 import Modelo.Usuario;
 import Nodos.ListaImagen;
@@ -36,13 +36,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     Usuario user = new Usuario();
     ListaUser categoira = new ListaUser();
     ListaImagen listarImagen = new ListaImagen();
-    Data data;
+    ControlData data;
     //modelos
     DefaultListModel model;
 
     //variables 
     private ListaUser listaUsuarios;
-    private ListaImagen listaImagenes;
+   // private ListaImagen listaImagenes;
     NodoImagen ImgActual;
     NodoUser usuarioActual;
     String imagen;
@@ -52,7 +52,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     /**
      * Creates new form FrmBiblioteca
      */
-    public FrmBiblioteca(Data data, String nombre) {
+    public FrmBiblioteca(ControlData data, String nombre) {
 
         initComponents();
         this.data = data;

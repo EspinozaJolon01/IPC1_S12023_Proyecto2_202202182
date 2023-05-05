@@ -4,8 +4,8 @@
  */
 package Nodos;
 
-import Modelo.Categoria;
-import Modelo.CategoriaDao;
+
+
 import Modelo.Usuario;
 import java.util.ArrayList;
 
@@ -95,25 +95,7 @@ public class ListaUser extends EstructuraDeDatos {
         return false;
     }
 
-    public String listarNombres() {
-        NodoUser axu = cabeza;
-        while (axu != null) {
-            return axu.getUsuario();
-        }
-        axu = axu.getSiguiente();
 
-        return null;
-    }
-
-    public void listarNombre() {
-        NodoUser axu = cabeza;
-        while (axu != null) {
-            System.out.println("-------------------");
-            System.out.println(axu.getUsuario() + " --");
-            axu = axu.getSiguiente();
-        }
-        System.out.println("null \n");
-    }
 
     public NodoUser getCabeza() {
         return cabeza;

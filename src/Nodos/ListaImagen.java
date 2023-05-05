@@ -14,11 +14,12 @@ import proyecto2.EstructuraDeDatos;
  */
 public class ListaImagen extends EstructuraDeDatos {
 
-    NodoImagen inicio;
-    NodoImagen ultimo;
+    private NodoImagen inicio;
+    private NodoImagen ultimo;
 
     public ListaImagen() {
         this.inicio = null;
+        this.ultimo = null;
 
     }
 
@@ -83,40 +84,21 @@ public class ListaImagen extends EstructuraDeDatos {
         NodoImagen atras = new NodoImagen(imagen, categoria);
 
         actual = inicio;
-        atras = null;
+        atras = ultimo;
 
-//        do {
-//
-//            if (actual.rutaPath == imagen) {
-//                if (actual == inicio) {
-//                    inicio = inicio.siguiente;
-//                    ultimo.siguiente = inicio;
-//                    inicio.anterior = ultimo;
-//                } else if (actual == ultimo) {
-//                    ultimo = atras;
-//                    inicio.anterior = ultimo;
-//                    ultimo.siguiente = inicio;
-//                } else {
-//                    atras.siguiente = actual.siguiente;
-//                    actual.siguiente.anterior = atras;
-//                }
-//            }
-//
-//            atras = actual;
-//            actual = actual.siguiente;
-//
-//        } while (actual != inicio);
-
-        actual = inicio;
-        atras = null;
+//        actual = inicio;
+//        atras = null;
         while (actual != null) {
             if (actual.rutaPath == imagen) {
                 if (actual == inicio) {
                     inicio = inicio.siguiente;
                     inicio.anterior = null;
+                } else if (actual == ultimo) {
+                    atras.siguiente = null;
+                    ultimo = atras;
                 } else {
                     atras.siguiente = actual.siguiente;
-                    actual.siguiente.anterior = actual.anterior;
+                    actual.siguiente.anterior = actual.siguiente;
                 }
             }
             atras = actual;

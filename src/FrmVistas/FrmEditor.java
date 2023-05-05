@@ -4,7 +4,7 @@
  */
 package FrmVistas;
 
-import Modelo.Data;
+import Modelo.ControlData;
 import Modelo.Usuario;
 import handlersImg.JEPGImageHandlerBN;
 import handlersImg.JEPGImageHandlerBmp;
@@ -26,16 +26,16 @@ import proyecto2.JPEGHandler;
  */
 public class FrmEditor extends javax.swing.JFrame {
 
-    String imagen;
-    ImageIcon imagenU;
-    Usuario user = new Usuario();
-    Data data;
+//    String imagen;
+//    ImageIcon imagenU;
+//    Usuario user = new Usuario();
+    ControlData data;
     String urlImagen = "";
 
     /**
      * Creates new form FrmEditor
      */
-    public FrmEditor(Data data) {
+    public FrmEditor(ControlData data) {
 
         initComponents();
         this.data = data;
@@ -228,6 +228,7 @@ public class FrmEditor extends javax.swing.JFrame {
         } else {
             if (jRadioButtonBlancoYNegro.isSelected()) {
                 JEPGImageHandlerBN handlerBn = new JEPGImageHandlerBN(urlImagen);
+                JOptionPane.showMessageDialog(this, "Ejecucion terminada  de blanco y negro");
                 try {
                     JPEGHandler.runHandler(handlerBn);
                 } catch (Exception e) {
@@ -236,6 +237,7 @@ public class FrmEditor extends javax.swing.JFrame {
 
             } else if (jRadioButtonColores.isSelected()) {
                 JEPGImagenHandlerColores handlerColores = new JEPGImagenHandlerColores(urlImagen);
+                 JOptionPane.showMessageDialog(this, "Ejecucion terminada  de colores");
                 try {
                     JPEGHandler.runHandler(handlerColores);
                 } catch (Exception o) {
@@ -243,14 +245,16 @@ public class FrmEditor extends javax.swing.JFrame {
                 }
             } else if (jRadioButtonCopia.isSelected()) {
                 JEPGImageHandlerCopia handlerCopia = new JEPGImageHandlerCopia(urlImagen);
+                  JOptionPane.showMessageDialog(this, "Ejecucion terminada  de realizar una copia");
                 try {
                     JPEGHandler.runHandler(handlerCopia);
-                    System.out.println(imagen);
+                  
                 } catch (Exception k) {
                     k.printStackTrace();
                 }
             } else if (jRadioButtonModifca.isSelected()) {
                 JEPGImageHandlerModificar handlersModificar = new JEPGImageHandlerModificar(urlImagen);
+                 JOptionPane.showMessageDialog(this, "Ejecucion terminada  de modificar");
                 try {
                     JPEGHandler.runHandler(handlersModificar);
                 } catch (Exception k) {
@@ -258,16 +262,18 @@ public class FrmEditor extends javax.swing.JFrame {
                 }
 
             } else if (jRadioButtonJpgABmp.isSelected()) {
-                if (imagen.toLowerCase().endsWith(".jpg")) {
+                if (urlImagen.toLowerCase().endsWith(".jpg")) {
                     JEPGImageHandlerBmp handlresBmp = new JEPGImageHandlerBmp(urlImagen);
+                      JOptionPane.showMessageDialog(this, "Ejecucion terminada  de convertir a jpg");
                     try {
                         JPEGHandler.runHandler(handlresBmp);
                     } catch (Exception p) {
                         p.printStackTrace();
                     }
 
-                } else if (imagen.toLowerCase().endsWith(".bmp")) {
+                } else if (urlImagen.toLowerCase().endsWith(".bmp")) {
                     JEPGImageHandlerJPEG handlresJEPG = new JEPGImageHandlerJPEG(urlImagen);
+                    JOptionPane.showMessageDialog(this, "Ejecucion terminada  de convertir a bmp");
                     try {
                         JPEGHandler.runHandler(handlresJEPG);
 

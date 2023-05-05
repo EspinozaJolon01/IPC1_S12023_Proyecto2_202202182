@@ -11,7 +11,7 @@ import Hilos.HiloCopia;
 import Hilos.HiloJPG;
 import Hilos.HiloModificar;
 import Hilos.HiloPorgreso;
-import Modelo.Data;
+import Modelo.ControlData;
 import Nodos.ListaImagen;
 import Nodos.ListaUser;
 import Nodos.NodoImagen;
@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmConvertidor extends javax.swing.JFrame {
 
-    Data data;
+    ControlData data;
     NodoImagen imagenCategorias;
     ListaUser listaUser;
     NodoUser temporal;
@@ -39,7 +39,7 @@ public class FrmConvertidor extends javax.swing.JFrame {
     /**
      * Creates new form FrmConvertidor
      */
-    public FrmConvertidor(Data data) {
+    public FrmConvertidor(ControlData data) {
         initComponents();
         this.data = data;
         listaUser = data.getListaUsuarios();

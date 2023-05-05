@@ -11,12 +11,12 @@ import Nodos.ListaUser;
  *
  * @author Usuario
  */
-public class Data {
+public class ControlData {
 
     private ListaUser listaUsuarios;
     private ListaImagen listarImagenes;
 
-    public Data() {
+    public ControlData() {
         listaUsuarios = new ListaUser();
         listarImagenes = new ListaImagen();
     }

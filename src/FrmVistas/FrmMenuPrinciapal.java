@@ -4,9 +4,9 @@
 package FrmVistas;
 
 import Modelo.Usuario;
-import Modelo.Categoria;
-import Modelo.CategoriaDao;
-import Modelo.Data;
+
+
+import Modelo.ControlData;
 
 import Nodos.ListaUser;
 import Nodos.NodoUser;
@@ -20,13 +20,13 @@ import javax.swing.JOptionPane;
 public class FrmMenuPrinciapal extends javax.swing.JFrame {
 
     //  static ListaUser listarUser = new ListaUser();
-    Data data;
+    ControlData data;
     private ListaUser listaUser;
 
     /**
      * Creates new form FrmMenuPrinciapl
      */
-    public FrmMenuPrinciapal(Data data) {
+    public FrmMenuPrinciapal(ControlData data) {
         initComponents();
         this.data = data;
         listaUser = data.getListaUsuarios();
