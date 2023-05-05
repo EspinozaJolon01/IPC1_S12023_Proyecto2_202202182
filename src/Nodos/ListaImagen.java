@@ -96,9 +96,10 @@ public class ListaImagen extends EstructuraDeDatos {
                 } else if (actual == ultimo) {
                     atras.siguiente = null;
                     ultimo = atras;
+                    
                 } else {
                     atras.siguiente = actual.siguiente;
-                    actual.siguiente.anterior = actual.siguiente;
+                    actual.siguiente.anterior = actual.anterior;
                 }
             }
             atras = actual;

@@ -4,8 +4,6 @@
  */
 package FrmVistas;
 
-
-
 import Modelo.ControlData;
 
 import Modelo.Usuario;
@@ -42,7 +40,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     //variables 
     private ListaUser listaUsuarios;
-   // private ListaImagen listaImagenes;
+    // private ListaImagen listaImagenes;
     NodoImagen ImgActual;
     NodoUser usuarioActual;
     String imagen;
@@ -320,12 +318,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
             if (ImgActual != null) {
 
-                usuarioActual.listarImagenes.eliminaImagen(URLTemporal, categoriaSelec);
-                System.out.println("<url eliminado>" + URLTemporal);
-                JOptionPane.showMessageDialog(this, "la imagen ha sido eliminada");
+                try {
+                    usuarioActual.listarImagenes.eliminaImagen(URLTemporal, categoriaSelec);
+                    System.out.println("<url eliminado>" + URLTemporal);
+                    JOptionPane.showMessageDialog(this, "la imagen ha sido eliminada");
 //                    Image imagenNueva = new ImageIcon(URLTemporal).getImage();
-//                    ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
-//                    jLMostrarImage.setIcon(iconoNuevo);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
 
             }
 
