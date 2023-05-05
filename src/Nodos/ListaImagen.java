@@ -78,6 +78,8 @@ public class ListaImagen extends EstructuraDeDatos {
             nodoImagen.setAnterior(temporal);
         }
     }
+    
+    //eliminar
 
     public void eliminaImagen(String imagen, String categoria) {
         NodoImagen actual = new NodoImagen(imagen, categoria);
