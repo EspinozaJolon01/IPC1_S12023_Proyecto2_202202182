@@ -37,7 +37,7 @@ public class JEPGImagenHandlerColores extends ImageHandler {
     public void readFile() throws Exception {
         File file = new File(getFileName());
         jpg = ImageIO.read(file);
-        btnTemporal = new File("./btnTemporal.bmp");
+        btnTemporal = new File("src/Imagenes/Temporal/Temporal.bmp");
         ImageIO.write(jpg, "bmp", btnTemporal);
         bmp = ImageIO.read(btnTemporal);
         bmpGREEn = ImageIO.read(btnTemporal);
@@ -56,7 +56,7 @@ public class JEPGImagenHandlerColores extends ImageHandler {
             }
 
         }
-        ImageIO.write(bmp, "jpg", new File("./Red-Image-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmp, "jpg", new File("src/Imagenes/Red-" + nombreCorto + ".jpg"));
         btnTemporal.delete();
 
         for (int x = 0; x < bmpGREEn.getWidth(); x++) {
@@ -68,7 +68,7 @@ public class JEPGImagenHandlerColores extends ImageHandler {
             }
 
         }
-        ImageIO.write(bmpGREEn, "jpg", new File("./Grean-Image-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmpGREEn, "jpg", new File("src/Imagenes/Green-" + nombreCorto + ".jpg"));
         btnTemporal.delete();
 
         for (int x = 0; x < bmpBlue.getWidth(); x++) {
@@ -79,7 +79,7 @@ public class JEPGImagenHandlerColores extends ImageHandler {
             }
 
         }
-        ImageIO.write(bmpBlue, "jpg", new File("./blue-Image-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmpBlue, "jpg", new File("src/Imagenes/blue-" + nombreCorto + ".jpg"));
         btnTemporal.delete();
 
         for (int x = 0; x < bmpSerpia.getWidth(); x++) {
@@ -90,7 +90,7 @@ public class JEPGImagenHandlerColores extends ImageHandler {
             }
 
         }
-        ImageIO.write(bmpSerpia, "jpg", new File("./Sepia-Image-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmpSerpia, "jpg", new File("src/Imagenes/Sepia-" + nombreCorto + ".jpg"));
         btnTemporal.delete();
     }
 

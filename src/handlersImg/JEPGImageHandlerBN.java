@@ -32,7 +32,7 @@ public class JEPGImageHandlerBN extends ImageHandler {
     public void readFile() throws Exception {
         File file = new File(getFileName());
         jpg = ImageIO.read(file);
-        btnTemporal = new File("./btnTemporal.bmp");
+        btnTemporal = new File("src/Imagenes/Temporal/Temporal.bmp");
         ImageIO.write(jpg, "bmp", btnTemporal);
         bmp = ImageIO.read(btnTemporal);
     }
@@ -47,7 +47,7 @@ public class JEPGImageHandlerBN extends ImageHandler {
                 bmp.setRGB(x, y, newColor.getRGB());
             }
         }
-        ImageIO.write(bmp, "jpg", new File("./BN-" + nombreCorto + ".jpg"));
+        ImageIO.write(bmp, "jpg", new File("src/Imagenes/BN-" + nombreCorto + ".jpg"));
         btnTemporal.delete();
     }
 

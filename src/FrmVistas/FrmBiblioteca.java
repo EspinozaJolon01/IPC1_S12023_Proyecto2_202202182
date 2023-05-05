@@ -434,8 +434,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
                 URLTemporal = ImgActual.getRutaPath();
 
-                System.out.println("anteriro");
-                System.out.println(URLTemporal);
+                System.out.println("<url anteriro>" + URLTemporal);
                 Image imagenNueva = new ImageIcon(URLTemporal).getImage();
                 ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
                 jLMostrarImage.setIcon(iconoNuevo);
@@ -459,8 +458,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         if (ImgActual != null) {
             if (categoriaSelec.equals(ImgActual.getCategoria())) {
                 URLTemporal = ImgActual.getRutaPath();
-                System.out.println("siguiente");
-                System.out.println(URLTemporal);
+
+                System.out.println("<url siguiente>" + URLTemporal);
                 Image imagenNueva = new ImageIcon(URLTemporal).getImage();
                 ImageIcon iconoNuevo = new ImageIcon(imagenNueva.getScaledInstance(jLMostrarImage.getWidth(), jLMostrarImage.getHeight(), Image.SCALE_SMOOTH));
                 jLMostrarImage.setIcon(iconoNuevo);
