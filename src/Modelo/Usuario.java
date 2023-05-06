@@ -12,28 +12,21 @@ import java.util.ArrayList;
  */
 public class Usuario {
 
-    public String nombre;
+    public Usuario nombre;
     public String foto;
 
-    public Usuario() {
 
-    }
 
-    public Usuario(String foto) {
-        this.foto = foto;
-
-    }
-
-    public Usuario(String nombre, String foto) {
+    public Usuario(Usuario nombre) {
         this.nombre = nombre;
-        this.foto = foto;
+
     }
 
-    public String getNombre() {
+    public Usuario getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(Usuario nombre) {
         this.nombre = nombre;
     }
 

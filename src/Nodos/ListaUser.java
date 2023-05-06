@@ -4,8 +4,6 @@
  */
 package Nodos;
 
-
-
 import Modelo.Usuario;
 import java.util.ArrayList;
 
@@ -21,7 +19,19 @@ public class ListaUser extends EstructuraDeDatos {
 
     @Override
     public void add(Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String nombreUser = e.toString();
+
+        NodoUser nodoUser = new NodoUser(nombreUser);
+        if (cabeza == null) {
+            cabeza = nodoUser;
+        } else {
+            NodoUser aux = cabeza;
+            while (aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
+            }
+            aux.setSiguiente(nodoUser);
+        }
+        index++;
     }
 
     @Override
@@ -94,8 +104,6 @@ public class ListaUser extends EstructuraDeDatos {
         }
         return false;
     }
-
-
 
     public NodoUser getCabeza() {
         return cabeza;

@@ -31,7 +31,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     //CategoriaDao cate1 = new CategoriaDao();
     //clases
-    Usuario user = new Usuario();
+    
     ListaUser categoira = new ListaUser();
     ListaImagen listarImagen = new ListaImagen();
     ControlData data;
